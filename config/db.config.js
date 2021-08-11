@@ -24,8 +24,15 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 //require models & init with Sequlize
 db.user = require('../models/userBio.model')(sequelize, Sequelize);
+db.updateuserprofile = require('../models/userUpdateProfile')(sequelize, Sequelize);
 db.todo = require('../models/userTodo.model')(sequelize, Sequelize);
-//relationships
+//RELATIONSHIP TO UPDATE PROFILE TABLE
+//one to one
+db.user.hasOne(db.updateuserprofile);
+db.updateuserprofile.belongsTo(db.user, {
+    foreignKey: "userId"
+});
+//RELATIONSHIPS TO TODO TABLE
 //one to many
 db.user.hasMany(db.todo, {as: "todos"});
 db.todo.belongsTo(db.user, {
