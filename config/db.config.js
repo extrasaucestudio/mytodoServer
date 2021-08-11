@@ -23,12 +23,12 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 //require models & init with Sequlize
-db.users = require('../models/userBio.model')(sequelize, Sequelize);
-db.todos = require('../models/userTodo.model')(sequelize, Sequelize);
+db.user = require('../models/userBio.model')(sequelize, Sequelize);
+db.todo = require('../models/userTodo.model')(sequelize, Sequelize);
 //relationships
 //one to many
-db.users.hasMany(db.todos, {as: "todos"});
-db.todos.belongsTo(db.users, {
+db.user.hasMany(db.todo, {as: "todos"});
+db.todo.belongsTo(db.user, {
     foreignKey: "userId",
     as: "users"
 });

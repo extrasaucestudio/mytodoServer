@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Todos = sequelize.define('usertodos', {
+    const Todo = sequelize.define('usertodos', {
         todoText: {
             type: Sequelize.STRING
         },
@@ -10,4 +10,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }
     });
+    return Todo;
 };
