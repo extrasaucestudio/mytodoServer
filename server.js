@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 
 //import user
 const db = require('./config/db.config');
-const User = db.user;
+const User = db.usersdata;
 const Updateprofile = db.updateuserprofile;
 const Todo = db.todo;
 
@@ -42,20 +42,22 @@ app.listen(PORT, ()=>{
 //new data
 db.sequelize.sync({force: true}).then(()=>{
     console.log('Drop and Resync with {force: true}');
-    User.sync().then(()=>{
+    ////User.sync().then(()=>{
         User.create({
             email: 'peet@mail.com',
             password: bcrypt.hashSync('12345', 8),
             accountActivated: false
         })
-    });
+    ////});
     Updateprofile.create({
-        profilePicture: 'ulr',
-        username: 'alafsasa'
+        profilePicture: 'url',
+        username: 'alafsasa',
+        userbioId: 1
     });
     Todo.create({
         todoText: 'walk the dog',
         tododateCreated: '11/08/2021',
-        done: false
+        done: false,
+        userbioId: 1
     });
 });

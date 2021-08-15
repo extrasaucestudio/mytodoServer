@@ -23,21 +23,21 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 //require models & init with Sequlize
-db.user = require('../models/userBio.model')(sequelize, Sequelize);
+db.usersdata = require('../models/userBio.model')(sequelize, Sequelize);
 db.updateuserprofile = require('../models/userUpdateProfile')(sequelize, Sequelize);
 db.todo = require('../models/userTodo.model')(sequelize, Sequelize);
 //RELATIONSHIP TO UPDATE PROFILE TABLE
 //one to one
-db.user.hasOne(db.updateuserprofile);
-db.updateuserprofile.belongsTo(db.user, {
-    foreignKey: "userId"
+db.usersdata.hasOne(db.updateuserprofile);
+db.updateuserprofile.belongsTo(db.usersdata, {
+    foreignKey: "userbioId"
 });
 //RELATIONSHIPS TO TODO TABLE
 //one to many
-db.user.hasMany(db.todo, {as: "todos"});
-db.todo.belongsTo(db.user, {
-    foreignKey: "userId",
-    as: "users"
+db.usersdata.hasMany(db.todo, {as: "todo"});
+db.todo.belongsTo(db.usersdata, {
+    foreignKey: "userbioId",
+    as: "usersdata"
 });
 
 module.exports = db;
