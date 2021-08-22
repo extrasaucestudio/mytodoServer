@@ -16,6 +16,15 @@ module.exports = function(app){
         ],
         controller.signup
     );
-    app.post("/api/auth/updateprofile", controller.updateprofile);
+    //app.post("/updateprofile", controller.imageUpload.single("my-image-file"), (req, res)=>{
+    //    console.log("POST request received to /updateprofile");
+    //    res.send("POST request received on server to /updateprofile");
+    //    //get file names and save to db
+    //    
+    //});
+    app.post("/updateprofile", controller.imageUpload.single("my-image-file"), controller.saveprofiledata);
+    app.post("/api/user/:id", controller.confirmEmail);
+    //app.get('/api/user/:id', controller.confirmEmail);
     app.post("/api/auth/writetodo", controller.writetodo);
+    app.post("/test", controller.tests);
 }

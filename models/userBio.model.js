@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         accountActivated: {
             type: Sequelize.BOOLEAN,
-            default: false
+            defaultValue: false
         }
     });
     return UserBio;

@@ -26,6 +26,7 @@ db.sequelize = sequelize;
 db.usersdata = require('../models/userBio.model')(sequelize, Sequelize);
 db.updateuserprofile = require('../models/userUpdateProfile')(sequelize, Sequelize);
 db.todo = require('../models/userTodo.model')(sequelize, Sequelize);
+db.hashactivate = require('../models/Activates')(sequelize, Sequelize);
 //RELATIONSHIP TO UPDATE PROFILE TABLE
 //one to one
 db.usersdata.hasOne(db.updateuserprofile);
