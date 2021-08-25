@@ -8,7 +8,7 @@ const credentials = {
     auth: {
         //user data
         user: 'unloccode@gmail.com',
-        pass: 'suven2x4'
+        pass: 'austrus2040'
     }
 };
 

@@ -27,4 +27,5 @@ module.exports = function(app){
     //app.get('/api/user/:id', controller.confirmEmail);
     app.post("/api/auth/writetodo", controller.writetodo);
     app.post("/test", controller.tests);
+    app.post("/api/auth/signin", controller.signin);
 }

@@ -5,9 +5,10 @@ const HashActivates = db.hashactivate;
 const Todo = db.todo;
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const { Base64 } = require('js-base64');
 const md5 = require('md5');
+const config = require('../config/auth.config');
 
 //file path
 const imageUploadPath = 'luemens/uploads';
@@ -147,6 +148,43 @@ exports.confirmEmail = (req, res) => {
     })
 };
 
+//SIGN-IN-USER
+exports.signin =(req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    }).then(user=>{
+        if(!user){
+            return res.status(404).send({message: "User Not found!"})
+        }
+        //else
+        console.log(user);
+        var passwordIsValid = bcrypt.compareSync(
+            req.body.password,
+            user.password
+        );
+        //check password validity
+        if(!passwordIsValid){
+            return res.status(401).send({
+                accessToken: null,
+                message: "Invalid Password!"
+            });
+        }
+        //if everything is OK
+        var token = jwt.sign({id: user.id}, config.secret, {
+            expiresIn: 86400 //24 hours
+        });
+        //return result
+        res.status(200).send({
+            id: user.id,
+            email: user.email,
+            accessToken: token
+        });
+    }).catch(error=>{
+        res.status(500).send({message: error.message});
+    })
+};
 
 
 
