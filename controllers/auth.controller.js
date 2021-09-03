@@ -185,8 +185,20 @@ exports.signin =(req, res) => {
         res.status(500).send({message: error.message});
     })
 };
-
-
+//RESET_PASSWORD
+exports.resetpass = (req, res) => {
+    //console.log(req.body.email);
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    }).then(user=>{
+        if(!user){
+            return res.send("User Not Found!");
+        }
+        //else user exist
+    })
+}
 
 
 

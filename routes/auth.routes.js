@@ -28,4 +28,5 @@ module.exports = function(app){
     app.post("/api/auth/writetodo", controller.writetodo);
     app.post("/test", controller.tests);
     app.post("/api/auth/signin", controller.signin);
+    app.post("/api/auth/resetpassword", controller.resetpass);
 }
