@@ -3,10 +3,11 @@ const User = db.usersdata;
 const Updateprofile = db.updateuserprofile;
 const HashActivates = db.hashactivate;
 const Todo = db.todo;
+const UpdatePassword = db.respwd;
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
-const { Base64 } = require('js-base64');
+//const { Base64 } = require('js-base64');
 const md5 = require('md5');
 const config = require('../config/auth.config');
 
@@ -185,7 +186,7 @@ exports.signin =(req, res) => {
         res.status(500).send({message: error.message});
     })
 };
-//RESET_PASSWORD
+//RESET_PASSWORD_REQUEST
 exports.resetpass = (req, res) => {
     //console.log(req.body.email);
     User.findOne({
@@ -197,11 +198,79 @@ exports.resetpass = (req, res) => {
             return res.send("User Not Found!");
         }
         //else user exist
+        //save user data to db & send a password reset link
+        var md5mail = md5(req.body.email);
+        UpdatePassword.create({
+            email: req.body.email,
+            rphash: md5mail
+        }).then(()=>{
+            console.log("User data saved successfully!");
+        }).catch(error=>{
+            console.log(error);
+        })
+        //send email to user
+        //console.log("Attempting to send data to sendMail()");
+        //sendEmail(req.body.email, templates.accountsettings(md5mail));
+        res.status(200).send({message: 'Sucess'})
+        //.then(()=>{
+        //    console.log("Main sent to sendMail(), wait for response");
+        //    res.send({message: "Success"});
+        //}).catch(error=>{
+        //    res.status(500).send({message: error.message});
+        //})
+    }).catch(error=>{
+        res.status(500).send({message: error.message});
     })
 }
-
-
-
+//MAKE_PASSWORD_CHANGES
+exports.resetWatchdog = (req, res) => {
+    const {id} = req.params;
+    console.log(id);
+    //console.log(req.body.password);
+    UpdatePassword.findOne({
+        where: {
+            rphash: id
+        }
+    }).then(user=>{
+        if(!user){
+            console.log("You Don't Exist!");
+            return;
+        }
+        //else
+        //console.log(user.email);
+        User.findOne({
+            where: {
+                email: user.email
+            }
+        }).then(user=>{
+            if(!user){
+                console.log("You Don't Exist!");
+                return;
+            }
+            //else everything is OK
+            let updatedObject = {
+                email: user.email,
+                password: bcrypt.hashSync(req.body.password, 8)
+            }
+            //update object to db
+            User.update(updatedObject,
+                {
+                    returning: true,
+                    where: {email: user.email},
+                    attributes: [
+                        'id',
+                        'email',
+                        'password'
+                    ]
+                }).then(()=>{
+                    console.log("Password Changed Successfully");
+                    res.send({message: "Success"});
+                })
+            .catch(error=>console.log(error))
+            
+        })
+    })
+}
 
 //test
 exports.tests = (req, res) => {
