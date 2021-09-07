@@ -203,15 +203,18 @@ exports.resetpass = (req, res) => {
         UpdatePassword.create({
             email: req.body.email,
             rphash: md5mail
-        }).then(()=>{
+        }).then((userpassrq)=>{
             console.log("User data saved successfully!");
-        }).catch(error=>{
+            //send email
+            sendEmail(userpassrq.email, templates.accountsettings(md5mail))
+        }).then(()=>res.json({msg: msgs.confirm}))
+        .catch(error=>{
             console.log(error);
         })
         //send email to user
         //console.log("Attempting to send data to sendMail()");
         //sendEmail(req.body.email, templates.accountsettings(md5mail));
-        res.status(200).send({message: 'Sucess'})
+        //res.status(200).send({message: 'Sucess'})
         //.then(()=>{
         //    console.log("Main sent to sendMail(), wait for response");
         //    res.send({message: "Success"});
