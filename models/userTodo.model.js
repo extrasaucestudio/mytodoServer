@@ -1,9 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
     const Todo = sequelize.define('usertodos', {
-        todoText: {
+        taskHead: {
             type: Sequelize.STRING
         },
-        tododateCreated: {
+        taskBody: {
+            type: Sequelize.STRING
+        },
+        taskDate: {
+            type: Sequelize.STRING
+        },
+        taskTimeStamp: {
             type: Sequelize.STRING
         },
         done: {

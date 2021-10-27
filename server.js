@@ -55,8 +55,10 @@ db.sequelize.sync({force: true}).then(()=>{
         userbioId: 1
     });
     Todo.create({
-        todoText: 'walk the dog',
-        tododateCreated: '11/08/2021',
+        taskHead: 'Glass animals',
+        taskBody: 'Heat waves',
+        taskDate: '17:39',
+        taskTimeStamp: '27102021',
         done: false,
         userbioId: 1
     });
