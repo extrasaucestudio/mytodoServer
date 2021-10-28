@@ -26,7 +26,8 @@ module.exports = function(app){
     app.post("/api/user/:id", controller.confirmEmail);
     //app.get('/api/user/:id', controller.confirmEmail);
     app.post("/api/auth/writetodo", controller.writetodo);
-    app.get('/api/auth/tasks', controller.readtasks);
+    app.get('/api/auth/task/:id', controller.readtasks);
+    //app.get('/api/auth/task/:id', controller.userTasks);
     app.post("/test", controller.tests);
     app.post("/api/auth/signin", controller.signin);
     app.post("/api/auth/resetpassword", controller.resetpass);

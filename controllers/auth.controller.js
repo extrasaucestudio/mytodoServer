@@ -311,9 +311,11 @@ exports.writetodo = (req, res) => {
     });
 };
 //READ STORED TASKS FROM THE DB
+//RETURN ALL TASKS
 exports.readtasks = (req, res) => {
     //some awesome code
     //find all tasks
+    const {id} = req.params;
     try{
         Todo.findAll({
             attributes: [
@@ -324,7 +326,8 @@ exports.readtasks = (req, res) => {
                 'taskTimeStamp',
                 'done',
                 'userbioId'
-            ]
+            ],
+            where: {userbioId: id}
         }).then(tasks=>{
             res.status(200).json(tasks);
         })
@@ -335,4 +338,12 @@ exports.readtasks = (req, res) => {
             error: error
         });
     }
+};
+//RETURN SPECIFIC TASK USING id
+exports.userTasks = (req, res) => {
+    const {id} = req.params;
+    //console.log(id);
+    Todo.findAll({
+
+    })
 };
