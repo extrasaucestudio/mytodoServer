@@ -298,8 +298,10 @@ exports.fetchimage = (req, res) => {
 exports.writetodo = (req, res) => {
     //save todo data
     Todo.create({
-        todoText: req.body.todoText,
-        tododateCreated: req.body.tododateCreated,
+        taskHead: req.body.taskHead,
+        taskBody: req.body.taskBody,
+        taskDate: req.body.taskDate,
+        taskTimeStamp: req.body.taskTimeStamp,
         done: req.body.done,
         userbioId: req.body.userbioId
     }).then(()=>{
