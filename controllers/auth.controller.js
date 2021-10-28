@@ -294,7 +294,7 @@ exports.fetchimage = (req, res) => {
         });
     });
 };
-
+//WRITE USER TASKS TO DB
 exports.writetodo = (req, res) => {
     //save todo data
     Todo.create({
@@ -309,4 +309,30 @@ exports.writetodo = (req, res) => {
     }).catch((error)=>{
         res.status(500).send({message: error.message});
     });
+};
+//READ STORED TASKS FROM THE DB
+exports.readtasks = (req, res) => {
+    //some awesome code
+    //find all tasks
+    try{
+        Todo.findAll({
+            attributes: [
+                'id',
+                'taskHead',
+                'taskBody',
+                'taskDate',
+                'taskTimeStamp',
+                'done',
+                'userbioId'
+            ]
+        }).then(tasks=>{
+            res.status(200).json(tasks);
+        })
+    }catch(error){
+        console.log(error);
+        res.status(500).json({
+            message: "Error",
+            error: error
+        });
+    }
 };
