@@ -350,6 +350,46 @@ exports.userTasks = (req, res) => {
 //DONE TODO UPDATE
 exports.taskDone = (req, res) => {
     //coded
-    const {id} = req.params;
-    console.log(id);
+    //const {id} = req.params;
+    //console.log(id);
+    //also require task id
+    //console.log(req.body.userId);
+    //console.log(req.body.idTask)
+    //find user find in db
+    User.findOne({
+        where: {id: req.body.userId}
+    }).then(user=>{
+        if(!user){
+            console.log("User Not Found!");
+        }else{
+            //find todo
+            Todo.findOne({
+                where: {taskHead: req.body.idTask}
+            }).then(tasks=>{
+                //console.log(tasks)
+                if(!tasks){
+                    console.log("Task Not Found!");
+                }else{
+                    let updatedObject = {
+                        done: true
+                    }
+                    Todo.update(updatedObject,
+                        {
+                            returning: true,
+                            where: {taskHead: req.body.idTask},
+                            attributes: [
+                                'id',
+                                'taskHead',
+                                'taskBody',
+                                'taskTimeStamp',
+                                'done',
+                                'userbioId'
+                            ]
+                        }).then(()=>{
+                            console.log("Todo flipped to TRUE");
+                        }).catch(error=>console.log(error));
+                }
+            }).catch(error=>console.log(error));
+        }
+    })
 };

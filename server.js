@@ -40,6 +40,7 @@ app.listen(PORT, ()=>{
 
 //init the database
 //new data
+//db.sequelize.sync({force: true});
 db.sequelize.sync({force: true}).then(()=>{
     console.log('Drop and Resync with {force: true}');
     ////User.sync().then(()=>{
