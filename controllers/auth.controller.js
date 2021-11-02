@@ -347,3 +347,9 @@ exports.userTasks = (req, res) => {
 
     })
 };
+//DONE TODO UPDATE
+exports.taskDone = (req, res) => {
+    //coded
+    const {id} = req.params;
+    console.log(id);
+};
