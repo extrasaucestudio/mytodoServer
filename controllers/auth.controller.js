@@ -393,3 +393,35 @@ exports.taskDone = (req, res) => {
         }
     })
 };
+//DELETE A TASKS
+exports.deleteTask = (req, res) => {
+    //confirm user
+    User.findOne({
+        where: {id: req.body.userId}
+    }).then(user=>{
+        if(!user){
+            console.log("User Not Found!");
+        }else{
+            //user is found & continue
+            //now look for the todo
+            //when the todo is found delete
+            Todo.destroy({
+                where: {taskHead: req.body.idTask}
+            }).then(num=>{
+                if(num == 1){
+                    res.send({
+                        message: "Task deleted successfully!"
+                    });
+                }else{
+                    res.send({
+                        message: "Cannot delete task, check logs code 1"
+                    });
+                }
+            })
+        }
+    }).catch(error=>{
+        res.status(500).send({
+            message: "Could not delete Task!, check the logs code 2"
+        });
+    })
+};

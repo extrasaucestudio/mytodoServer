@@ -28,6 +28,7 @@ module.exports = function(app){
     app.post("/api/auth/writetodo", controller.writetodo);
     app.get('/api/auth/task/:id', controller.readtasks);
     app.post("/api/auth/taskdone", controller.taskDone);
+    app.delete("/api/auth/taskrd/:id", controller.deleteTask);
     //app.get('/api/auth/task/:id', controller.userTasks);
     app.post("/test", controller.tests);
     app.post("/api/auth/signin", controller.signin);
