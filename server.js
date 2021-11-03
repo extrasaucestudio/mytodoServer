@@ -40,27 +40,28 @@ app.listen(PORT, ()=>{
 
 //init the database
 //new data
+db.sequelize;
 //db.sequelize.sync({force: true});
-db.sequelize.sync({force: true}).then(()=>{
-    console.log('Drop and Resync with {force: true}');
-    ////User.sync().then(()=>{
-        User.create({
-            email: 'peet@mail.com',
-            password: bcrypt.hashSync('12345', 8),
-            accountActivated: false
-        })
-    ////});
-    Updateprofile.create({
-        profilePicture: 'url',
-        username: 'alafsasa',
-        userbioId: 1
-    });
-    Todo.create({
-        taskHead: 'Glass animals',
-        taskBody: 'Heat waves',
-        taskDate: '17:39',
-        taskTimeStamp: '27102021',
-        done: false,
-        userbioId: 1
-    });
-});
+//db.sequelize.sync({force: true}).then(()=>{
+//    console.log('Drop and Resync with {force: true}');
+//    ////User.sync().then(()=>{
+//        User.create({
+//            email: 'peet@mail.com',
+//            password: bcrypt.hashSync('12345', 8),
+//            accountActivated: false
+//        })
+//    ////});
+//    Updateprofile.create({
+//        profilePicture: 'url',
+//        username: 'alafsasa',
+//        userbioId: 1
+//    });
+//    Todo.create({
+//        taskHead: 'Glass animals',
+//        taskBody: 'Heat waves',
+//        taskDate: '17:39',
+//        taskTimeStamp: '27102021',
+//        done: false,
+//        userbioId: 1
+//    });
+//});

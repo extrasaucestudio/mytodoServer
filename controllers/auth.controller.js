@@ -395,33 +395,37 @@ exports.taskDone = (req, res) => {
 };
 //DELETE A TASKS
 exports.deleteTask = (req, res) => {
+    const {id} = req.params;
+    console.log(id);
+    console.log(req.body.foo)
     //confirm user
-    User.findOne({
-        where: {id: req.body.userId}
-    }).then(user=>{
-        if(!user){
-            console.log("User Not Found!");
-        }else{
-            //user is found & continue
-            //now look for the todo
-            //when the todo is found delete
-            Todo.destroy({
-                where: {taskHead: req.body.idTask}
-            }).then(num=>{
-                if(num == 1){
-                    res.send({
-                        message: "Task deleted successfully!"
-                    });
-                }else{
-                    res.send({
-                        message: "Cannot delete task, check logs code 1"
-                    });
-                }
-            })
-        }
-    }).catch(error=>{
-        res.status(500).send({
-            message: "Could not delete Task!, check the logs code 2"
-        });
-    })
+    //User.findOne({
+    //    where: {id: req.body.userId}
+    //}).then(user=>{
+    //    if(!user){
+    //        console.log("User Not Found!");
+    //    }else{
+    //        //user is found & continue
+    //        //now look for the todo
+    //        //when the todo is found delete
+    //        res.send("every is ok")
+    //        Todo.destroy({
+    //            where: {taskHead: req.body.idTask}
+    //        }).then(num=>{
+    //            if(num == 1){
+    //                res.send({
+    //                    message: "Task deleted successfully!"
+    //                });
+    //            }else{
+    //                res.send({
+    //                    message: "Cannot delete task, check logs code 1"
+    //                });
+    //            }
+    //        })
+    //    }
+    //}).catch(error=>{
+    //    res.status(500).send({
+    //        message: "Could not delete Task!, check the logs code 2"
+    //    });
+    //})
 };
