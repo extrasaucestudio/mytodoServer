@@ -424,3 +424,49 @@ exports.deleteTask = (req, res) => {
         });
     })
 };
+//UPDATE TASK
+exports.updateTask = (req, res) => {
+    //console.log(req.body.id);
+    //console.log(req.body.taskHead);
+    //console.log(req.body.taskBody);
+    //console.log(req.body.userId)
+    
+    //find user
+    User.findOne({
+        where: {id: req.body.userId}
+    }).then(user=>{
+        if(!user){
+            console.log("User Not Found!");
+        }else{
+            //green
+            //find todo
+            Todo.findOne({
+                where: {id: req.body.id}
+            }).then(task=>{
+                if(!task){
+                    console.log("Task Not Found!");
+                }else{
+                    let updatedObject = {
+                        taskHead: req.body.taskHead,
+                        taskBody: req.body.taskBody
+                    }
+                    Todo.update(updatedObject,
+                        {
+                            returning: true,
+                            where: {id: req.body.id},
+                            attributes: [
+                                'id',
+                                'taskHead',
+                                'taskBody',
+                                'taskTimeStamp',
+                                'done',
+                                'userbioId'
+                            ]
+                        }).then(()=>{
+                            console.log('Data Updated Successfully');
+                        }).catch(error=>console.log(error));
+                }
+            }).catch(error=>console.log(error));
+        }
+    })
+};
