@@ -23,6 +23,7 @@ module.exports = function(app){
     //    
     //});
     app.post("/updateprofile", controller.imageUpload.single("my-image-file"), controller.saveprofiledata);
+    app.get("/api/auth/profiler/:id", controller.pullProfileData);
     app.post("/api/user/:id", controller.confirmEmail);
     //app.get('/api/user/:id', controller.confirmEmail);
     app.post("/api/auth/writetodo", controller.writetodo);

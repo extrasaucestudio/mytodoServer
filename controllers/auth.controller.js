@@ -3,6 +3,7 @@ const User = db.usersdata;
 const Updateprofile = db.updateuserprofile;
 const HashActivates = db.hashactivate;
 const Todo = db.todo;
+const Profiler = db.Updateprofile;
 const UpdatePassword = db.respwd;
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
@@ -371,6 +372,8 @@ exports.taskDone = (req, res) => {
                     console.log("Task Not Found!");
                 }else{
                     let updatedObject = {
+                        taskDate: req.body.taskDate,
+                        taskTimeStamp: req.body.taskTimeStamp,
                         done: true
                     }
                     Todo.update(updatedObject,
@@ -381,12 +384,13 @@ exports.taskDone = (req, res) => {
                                 'id',
                                 'taskHead',
                                 'taskBody',
+                                'taskDate',
                                 'taskTimeStamp',
                                 'done',
                                 'userbioId'
                             ]
                         }).then(()=>{
-                            console.log("Todo flipped to TRUE");
+                            console.log("Data updated Successfully");
                         }).catch(error=>console.log(error));
                 }
             }).catch(error=>console.log(error));
@@ -430,7 +434,6 @@ exports.updateTask = (req, res) => {
     //console.log(req.body.taskHead);
     //console.log(req.body.taskBody);
     //console.log(req.body.userId)
-    console.log(req.body.taskDate)
     
     //find user
     User.findOne({
@@ -461,6 +464,7 @@ exports.updateTask = (req, res) => {
                                 'id',
                                 'taskHead',
                                 'taskBody',
+                                'taskDate',
                                 'taskTimeStamp',
                                 'done',
                                 'userbioId'
@@ -470,6 +474,37 @@ exports.updateTask = (req, res) => {
                         }).catch(error=>console.log(error));
                 }
             }).catch(error=>console.log(error));
+        }
+    })
+};
+//PULL PROFILE DATA
+exports.pullProfileData = (req, res) => {
+    //search user
+    //acquire unique id
+    const {id} = req.params;
+    User.findOne({
+        where: {id: id}
+    }).then(user=>{
+        if(!user){
+            console.log("User Not Found")
+        }else{
+            //user is found
+            Updateprofile.findOne({
+                where: {userbioId: id}
+            }).then(profile=>{
+                if(!profile){
+                    console.log("Wrong Data!");
+                }else{
+                    //green
+                    res.status(200).json(profile);
+                }
+            }).catch(error=>{
+                console.log(error);
+                res.status(500).json({
+                    message: "Error",
+                    error: error
+                })
+            })
         }
     })
 };
