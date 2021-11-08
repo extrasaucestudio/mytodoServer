@@ -430,6 +430,7 @@ exports.updateTask = (req, res) => {
     //console.log(req.body.taskHead);
     //console.log(req.body.taskBody);
     //console.log(req.body.userId)
+    console.log(req.body.taskDate)
     
     //find user
     User.findOne({
@@ -448,7 +449,9 @@ exports.updateTask = (req, res) => {
                 }else{
                     let updatedObject = {
                         taskHead: req.body.taskHead,
-                        taskBody: req.body.taskBody
+                        taskBody: req.body.taskBody,
+                        taskDate: req.body.taskDate,
+                        taskTimeStamp: req.body.taskTimeStamp
                     }
                     Todo.update(updatedObject,
                         {
