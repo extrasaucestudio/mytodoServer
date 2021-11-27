@@ -18,9 +18,14 @@ app.use('/static', express.static(path.join(__dirname, 'luemens/uploads')));
 //app.use(express.static('public'));
 
 //cors
+//const corsOptions = {
+//    origin: "http://localhost:3000"
+//};
+
 const corsOptions = {
-    origin: "http://localhost:3000"
+    origin: "https://keeptask.herokuapp.com"
 };
+
 app.use(cors(corsOptions));
 
 //parse requests of content-type -application/json
