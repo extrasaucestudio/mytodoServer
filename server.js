@@ -10,7 +10,7 @@ const Updateprofile = db.updateuserprofile;
 const Todo = db.todo;
 
 const app = express();
-const PORT = 8080;
+const port = process.env.PORT || 8080;
 
 //static files
 const path = require('path');
@@ -40,7 +40,7 @@ require('./routes/auth.routes')(app);
 
 //fire up the server
 app.listen(PORT, ()=>{
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
 
 //init the database
