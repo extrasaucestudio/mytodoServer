@@ -14,7 +14,7 @@
 //};
 
 //online
-freemysqlhosting
+//freemysqlhosting
 module.exports = {
     HOST: 'sql11.freemysqlhosting.net',
     USER: 'sql11454217',
