@@ -1,13 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
 
 //import user
 const db = require('./config/db.config');
-const User = db.usersdata;
-const Updateprofile = db.updateuserprofile;
-const Todo = db.todo;
+//const User = db.usersdata;
+//const Updateprofile = db.updateuserprofile;
+//const Todo = db.todo;
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -18,13 +18,13 @@ app.use('/static', express.static(path.join(__dirname, 'luemens/uploads')));
 //app.use(express.static('public'));
 
 //cors
-const corsOptions = {
-    origin: "http://localhost:3000"
-};
-
 //const corsOptions = {
-//    origin: "https://keeptask.herokuapp.com"
+//    origin: "http://localhost:3000"
 //};
+
+const corsOptions = {
+    origin: "https://keeptask.herokuapp.com"
+};
 
 app.use(cors(corsOptions));
 
