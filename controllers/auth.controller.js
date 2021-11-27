@@ -13,7 +13,7 @@ const md5 = require('md5');
 const config = require('../config/auth.config');
 
 //file path
-const imageUploadPath = 'luemens/uploads';
+//const imageUploadPath = 'luemens/uploads';
 //email imports
 const sendEmail = require('../email/email.send');
 const msgs = require('../email/email.msgs');
@@ -38,31 +38,31 @@ exports.signup = (req, res) => {
 };
 
 //public data
-let imageURL = '';
+//let imageURL = '';
 
 //store images
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, imageUploadPath);
-    },
-    filename: function(req, file, cb){
-        imageURL = `${file.fieldname}_mytodo_${Date.now()}_${file.originalname}`
-        cb(null, imageURL);
-    }
-});
+//const storage = multer.diskStorage({
+//    destination: function(req, file, cb){
+//        cb(null, imageUploadPath);
+//    },
+//    filename: function(req, file, cb){
+//        imageURL = `${file.fieldname}_mytodo_${Date.now()}_${file.originalname}`
+//        cb(null, imageURL);
+//    }
+//});
 
-exports.imageUpload = multer({
-    storage: storage,
-    //file filter
-    fileFilter: (req, file, cb) => {
-        if(file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg"){
-            cb(null, true);
-        }else{
-            cb(null, false);
-            console.log('Only .png, .jpg, and .jpeg format allowed');
-        }
-    }
-});
+//exports.imageUpload = multer({
+//    storage: storage,
+//    //file filter
+//    fileFilter: (req, file, cb) => {
+//        if(file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg"){
+//            cb(null, true);
+//        }else{
+//            cb(null, false);
+//            console.log('Only .png, .jpg, and .jpeg format allowed');
+//        }
+//    }
+//});
 
 exports.saveprofiledata = (req, res) => {
     //console.log(pemail);
@@ -70,10 +70,11 @@ exports.saveprofiledata = (req, res) => {
     User.findOne({
         where: {email: pemail}
     }).then(user=>{
-        if(imageURL !== ''){
+        //if(imageURL !== ''){
             //save image and username data to db
             Updateprofile.create({
-                profilePicture: imageURL,
+                //profilePicture: imageURL,
+                profilePicture: req.body.luedp,
                 username: req.body.luetext,
                 userbioId: user.id
             }).then(()=>{
@@ -97,7 +98,7 @@ exports.saveprofiledata = (req, res) => {
             }).catch(error=>{
                 res.status(500).send({message: error.message});
             });
-        }
+        //}
     }).catch(error=>{
         console.log(error);
     })

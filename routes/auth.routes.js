@@ -22,7 +22,8 @@ module.exports = function(app){
     //    //get file names and save to db
     //    
     //});
-    app.post("/updateprofile", controller.imageUpload.single("my-image-file"), controller.saveprofiledata);
+    //app.post("/updateprofile", controller.imageUpload.single("my-image-file"), controller.saveprofiledata);
+    app.post("/updateprofile", controller.saveprofiledata);
     app.get("/api/auth/profiler/:id", controller.pullProfileData);
     app.post("/api/user/:id", controller.confirmEmail);
     //app.get('/api/user/:id', controller.confirmEmail);
