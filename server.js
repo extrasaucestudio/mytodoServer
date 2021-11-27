@@ -39,7 +39,7 @@ app.get('/', (req, res)=>{
 require('./routes/auth.routes')(app);
 
 //fire up the server
-app.listen(PORT, ()=>{
+app.listen(port, ()=>{
     console.log(`Server running at http://localhost:${port}`);
 });
 
